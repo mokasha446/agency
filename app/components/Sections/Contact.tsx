@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useToast } from "../Common/Toast";
 
 interface ContactInfo {
   label: string;
@@ -37,6 +38,7 @@ const initialFormState: LeadFormState = {
 
 export default function Contact() {
   const [formState, setFormState] = useState<LeadFormState>(initialFormState);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const handleEstimateSubmit = (event: Event) => {
@@ -86,6 +88,13 @@ export default function Contact() {
       }));
     };
 
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    showToast("Message sent successfully!", "success");
+    setFormState(initialFormState);
+  };
+
   return (
     <section
       className="bg-[#05070d] px-5 py-24 text-white sm:px-6 lg:px-8"
@@ -131,6 +140,7 @@ export default function Contact() {
         <form
           className="rounded-xl border border-cyan-300/20 bg-[#07111f] p-6 shadow-[0_0_70px_rgba(34,211,238,0.12)] sm:p-8"
           id="contact-form"
+          onSubmit={submitForm}
         >
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
