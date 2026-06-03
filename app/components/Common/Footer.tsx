@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 interface FooterLink {
   label: string;
@@ -13,16 +13,15 @@ interface FooterProps {
 
 const defaultQuickLinks: FooterLink[] = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Contact", href: "/contact" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const defaultServiceLinks: FooterLink[] = [
-  { label: "Web Design", href: "/services#web-design" },
-  { label: "Frontend Systems", href: "/services#frontend" },
-  { label: "Brand Interfaces", href: "/services#brand" },
-  { label: "Conversion Audits", href: "/services#audits" },
+  { label: "Web Development", href: "/services/web-development" },
+  { label: "App Development", href: "/services/app-development" },
+  { label: "DevOps & Cloud Integration", href: "/services/devops" },
 ];
 
 export default function Footer({
@@ -58,12 +57,19 @@ export default function Footer({
           <ul className="mt-5 space-y-3">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  className="text-sm text-slate-700 transition hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-200"
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-sm transition duration-300 ${
+                      isActive
+                        ? "text-cyan-500 font-semibold shadow-[0_0_10px_rgba(34,211,238,0.2)]"
+                        : "text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-200"
+                    }`
+                  }
                   to={link.href}
+                  end={link.href === "/"}
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -76,12 +82,19 @@ export default function Footer({
           <ul className="mt-5 space-y-3">
             {serviceLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  className="text-sm text-slate-700 transition hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-200"
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-sm transition duration-300 ${
+                      isActive
+                        ? "text-cyan-500 font-semibold shadow-[0_0_10px_rgba(34,211,238,0.2)]"
+                        : "text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-200"
+                    }`
+                  }
                   to={link.href}
+                  end={link.href === "/"}
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 interface NavItem {
   label: string;
@@ -13,9 +13,9 @@ interface NavbarProps {
 
 const defaultLinks: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Contact", href: "/contact" },
+  { label: "Careers", href: "/careers" },
 ];
 
 function MenuIcon({ isOpen }: { isOpen: boolean }) {
@@ -69,19 +69,26 @@ export default function Navbar({
 
         <div className="hidden items-center gap-1 md:flex">
           {links.map((item) => (
-            <Link
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
+            <NavLink
+              className={({ isActive }) =>
+                `rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 border ${
+                  isActive
+                    ? "text-cyan-300 bg-cyan-300/10 border-cyan-300/20 shadow-[0_0_15px_rgba(34,211,238,0.25)]"
+                    : "border-transparent text-slate-200 hover:bg-white/10 hover:text-white"
+                }`
+              }
               key={item.href}
               to={item.href}
+              end={item.href === "/"}
             >
               {item.label}
-            </Link>
+            </NavLink>
           ))}
         </div>
 
         <Link
           className="hidden rounded-full border border-cyan-300/30 bg-cyan-300/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/60 hover:bg-cyan-300/20 md:inline-flex"
-          to="/contact"
+          to="/#contact"
         >
           Start a project
         </Link>
@@ -117,19 +124,26 @@ export default function Navbar({
         >
           <div className="flex flex-col gap-1">
             {links.map((item) => (
-              <Link
-                className="rounded-lg px-4 py-3 text-base font-medium text-slate-100 transition hover:bg-white/10"
+              <NavLink
+                className={({ isActive }) =>
+                  `rounded-lg px-4 py-3 text-base font-medium transition-all duration-300 border ${
+                    isActive
+                      ? "text-cyan-300 bg-cyan-300/10 border-cyan-300/20 shadow-[0_0_15px_rgba(34,211,238,0.25)]"
+                      : "border-transparent text-slate-100 hover:bg-white/10"
+                  }`
+                }
                 key={item.href}
                 onClick={closeDrawer}
                 to={item.href}
+                end={item.href === "/"}
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
             <Link
               className="mt-2 rounded-lg bg-cyan-300 px-4 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200"
               onClick={closeDrawer}
-              to="/contact"
+              to="/#contact"
             >
               Start a project
             </Link>
